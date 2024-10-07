@@ -1,5 +1,5 @@
 import { useRoutes, RouteObject } from "react-router-dom";
-import EmptyLayout from "./layouts/authLayout";
+import EmptyLayout from "./layouts/emptyLayout";
 import routes from "~react-pages";
 import MainLayout from "./layouts/mainLayout";
 const wrapRoutesWithLayout = (routes: RouteObject[]): RouteObject[] => {
