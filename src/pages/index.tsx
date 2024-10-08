@@ -1,5 +1,9 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { login } from "@/redux/authSlice";
 import { Link } from "react-router-dom";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,7 +18,25 @@ import { Label } from "@/components/ui/label";
 export const description =
   "A login form with email and password. There's an option to login with Google and a link to sign up if you don't have an account.";
 
-export default function LoginForm() {
+export default function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(login({ email, password }));
+  };
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard/users");
+    }
+  }, [isAuthenticated, navigate]);
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
@@ -24,13 +46,15 @@ export default function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
+              value={email}
               placeholder="m@example.com"
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -44,17 +68,20 @@ export default function LoginForm() {
             <Input
               id="password"
               type="password"
+              value={password}
               placeholder="*********"
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <Button type="submit" className="w-full">
-            Login
+            {loading ? "Loading..." : "Login"}
           </Button>
           <Button variant="outline" className="w-full">
             Login with Google
           </Button>
-        </div>
+        </form>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
           <Link to="#" className="underline">

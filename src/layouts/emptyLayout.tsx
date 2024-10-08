@@ -1,13 +1,9 @@
-import React from "react";
+import { Outlet } from "react-router-dom";
 
-export default function EmptyLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function EmptyLayout() {
   return (
     <div className=" min-h-screen flex justify-center items-center">
-      {children}
+      <Outlet />
     </div>
   );
 }
