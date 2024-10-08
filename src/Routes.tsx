@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UsersPage from "./pages/dashboard/users";
 import NotFoundPage from "./pages/NotFound";
 import AboutPage from "./pages/about";
+import SignupPage from "./pages/signup/index";
 // const wrapRoutesWithLayout = (routes: RouteObject[]): RouteObject[] => {
 //   return routes.map((route) => {
 //     if (route.path === "/" || route.path === "/signup") {
@@ -28,7 +29,7 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<EmptyLayout />}>
         <Route path="/" element={<LoginPage />} />
-        {/* <Route path="/signup" element={<SignupPage />} /> */}
+        <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route element={<ProtectedRoute />}>
         <Route element={<MainLayout />}>

@@ -7,7 +7,6 @@ const IsAuthenticated = () => {
   return !!token;
 };
 const ProtectedRoute = () => {
-  console.log("isAuthenticated", IsAuthenticated());
   return IsAuthenticated() ? <Outlet /> : <Navigate to="/" />;
 };
 export default ProtectedRoute;
