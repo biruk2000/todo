@@ -4,10 +4,11 @@ import EmptyLayout from "./layouts/emptyLayout";
 import MainLayout from "./layouts/mainLayout";
 import LoginPage from "./pages";
 import ProtectedRoute from "./components/ProtectedRoute";
-import UsersPage from "./pages/dashboard/users";
+import UsersPage from "./pages/app";
 import NotFoundPage from "./pages/NotFound";
 import AboutPage from "./pages/about";
 import SignupPage from "./pages/signup/index";
+import PaymentsPage from "./pages/payments";
 // const wrapRoutesWithLayout = (routes: RouteObject[]): RouteObject[] => {
 //   return routes.map((route) => {
 //     if (route.path === "/" || route.path === "/signup") {
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route element={<MainLayout />}>
           <Route path="/dashboard/users" element={<UsersPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/payments" element={<PaymentsPage />} />
         </Route>
       </Route>
 
