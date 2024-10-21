@@ -3,7 +3,7 @@ import "./App.css";
 import { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
-import { store, persistor } from "./redux/store";
+import store, { persistor } from "./redux/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 function App() {

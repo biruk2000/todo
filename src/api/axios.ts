@@ -1,25 +1,24 @@
+import { RootState } from "@/redux/store";
+import { Store } from "@reduxjs/toolkit";
 import axios from "axios";
-
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3000",
   timeout: 30000,
 });
 
-// Add a request interceptor
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // Do something before request is sent
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+export const setupAxiosInterceptors = (store: Store<RootState>) =>
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      const token = store.getState().auth?.token;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
     }
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
+  );
 
 // Add a response interceptor
 axiosInstance.interceptors.response.use(

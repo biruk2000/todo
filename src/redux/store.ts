@@ -3,6 +3,7 @@ import authReducer from "./authSlice";
 import todoReducer from "./todosSlice";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { setupAxiosInterceptors } from "@/api/axios";
 const persistConfig = {
   key: "root",
   storage: storage,
@@ -15,11 +16,13 @@ const rootReducer = combineReducers({
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-export const store = configureStore({
+const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
+
+setupAxiosInterceptors(store);
 
 export const persistor = persistStore(store);
 

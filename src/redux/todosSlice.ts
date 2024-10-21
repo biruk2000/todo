@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 import { TodosState, Todo } from "@/types/todos";
-
 const initialState: TodosState = {
   todos: [],
   loading: false,
@@ -13,11 +12,20 @@ export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get("/todos");
+      const response = await axiosInstance.get<Todo[]>("/todos");
       return response.data;
     } catch (error) {
       return rejectWithValue(error);
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState() as TodosState;
+      console.log("state", state);
+      if (state.loading) {
+        return false;
+      }
+    },
   }
 );
 // Async thunk for adding todos
@@ -135,5 +143,8 @@ export const todosSlice = createSlice({
     });
   },
 });
+
+export const selectTodos = (state: TodosState) => state.todos;
+export const selectTodosLoading = (state: TodosState) => state.loading;
 
 export default todosSlice.reducer;
