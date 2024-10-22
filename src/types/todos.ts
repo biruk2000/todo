@@ -9,6 +9,6 @@ export interface Todo {
 
 export interface TodosState {
   todos: Todo[];
-  loading: boolean;
+  status: "idle" | "loading" | "success" | "error";
   error: string | null;
 }

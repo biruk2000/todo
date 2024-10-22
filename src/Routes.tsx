@@ -9,22 +9,6 @@ import NotFoundPage from "./pages/NotFound";
 import AboutPage from "./pages/about";
 import SignupPage from "./pages/signup/index";
 import PaymentsPage from "./pages/payments";
-// const wrapRoutesWithLayout = (routes: RouteObject[]): RouteObject[] => {
-//   return routes.map((route) => {
-//     if (route.path === "/" || route.path === "/signup") {
-//       return {
-//         ...route,
-//         element: <EmptyLayout>{route.element}</EmptyLayout>,
-//       };
-//     }
-
-//     return {
-//       ...route,
-//       element: <MainLayout>{route.element}</MainLayout>,
-//     };
-//   });
-// };
-
 const AppRoutes = () => {
   return (
     <Routes>
